@@ -1,0 +1,29 @@
+#ifndef WORD_VALIDATOR_LIST_REPLACER_H
+#define WORD_VALIDATOR_LIST_REPLACER_H
+
+#include "word_replacer.h"
+
+#include <set>
+
+class ReplacerWordToChar : public WordReplacer {
+public:
+    ReplacerWordToChar(std::vector<std::string> words, char ch) :
+            words_to_be_replaced(std::make_move_iterator(words.begin()), std::make_move_iterator(words.end())),
+            replacement_symbol(ch)
+    {
+    }
+
+    bool need_replace(std::string_view word) override {
+        return words_to_be_replaced.find(word) != words_to_be_replaced.end();
+    }
+
+    std::string replace_word(std::string_view word) override {
+        return std::string(word.size(), replacement_symbol);
+    }
+
+private:
+    std::set<std::string, std::less<>> words_to_be_replaced;
+    char replacement_symbol;
+};
+
+#endif //WORD_VALIDATOR_LIST_REPLACER_H

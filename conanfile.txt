@@ -1,0 +1,5 @@
+[requires]
+argparse/2.1
+
+[generators]
+cmake
