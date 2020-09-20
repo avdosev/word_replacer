@@ -41,20 +41,34 @@ std::unique_ptr<WordReplacer> build_replacer(std::istream &file, bool is_dict, c
     }
 }
 
-void replace_words_from_file(ConsoleArgs console_args) {
-    std::ifstream fin(console_args.src);
+void replace_words_from_file(
+        std::string src,
+        std::string dest,
+        std::string replace,
+        std::optional<char> replace_symbol,
+        bool use_dict
+        ) {
+    std::ifstream fin(src);
 
-    if (!std::filesystem::exists(console_args.replace))
-        throw file_not_found("file " + console_args.replace + " not exist");
+    if (!std::filesystem::exists(replace))
+        throw file_not_found("file " + replace + " not exist");
 
-    std::ifstream file(console_args.replace);
+    std::ifstream file(replace);
 
     if (!file.is_open())
-        throw file_not_found("file " + console_args.replace + " not open");
+        throw file_not_found("file " + replace + " not open");
 
-    auto symbol = console_args.replace_symbol;
-    auto replacer = std::move(build_replacer(file, false, symbol.has_value() ? symbol.value() : '*'));
-    replace_words_in_stream(fin, std::cout, *replacer);
+    auto replacer = std::move(build_replacer(file, use_dict, replace_symbol.value_or('*')));
+
+    if (dest.empty()) {
+        replace_words_in_stream(fin, std::cout, *replacer);
+    } else {
+        std::ofstream fout(dest);
+        if (!fout.is_open())
+            throw file_not_found("file " + dest + "not created");
+
+        replace_words_in_stream(fin, fout, *replacer);
+    }
 }
 
 int main(int argc, char* argv[]) {
@@ -73,7 +87,13 @@ int main(int argc, char* argv[]) {
     }
 
     try {
-        replace_words_from_file(console_args);
+        replace_words_from_file(
+                console_args.src,
+                console_args.dest,
+                console_args.replace,
+                console_args.replace_symbol,
+                console_args.use_dict
+                );
     } catch (const std::runtime_error& err) {
         std::cout << err.what() << std::endl;
         return 1;

@@ -7,10 +7,10 @@
 
 class ReplacerWordToWord : public WordReplacer {
 public:
-    ReplacerWordToWord(std::vector<std::pair<std::string, std::string>> word_to_word_pairs) :
+    explicit ReplacerWordToWord(std::vector<std::pair<std::string, std::string>> word_to_word_pairs) :
         word_replacement_dictionary(
-                std::make_move_iterator(word_replacement_dictionary.begin()),
-                std::make_move_iterator(word_replacement_dictionary.end()))
+                std::make_move_iterator(word_to_word_pairs.begin()),
+                std::make_move_iterator(word_to_word_pairs.end()))
     {
     }
 

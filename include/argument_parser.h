@@ -81,7 +81,7 @@ struct ConsoleArgs {
     static ConsoleArgs parse(int argc, char* argv[]) {
         std::vector<std::string_view> args;
         args.reserve(argc);
-        for (int arg = 0; arg < argc; arg++)
+        for (int arg = 1; arg < argc; arg++)
             args.emplace_back(argv[arg]);
         return parse(args);
     }
