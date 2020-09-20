@@ -16,6 +16,7 @@ struct ConsoleArgs {
     std::string replace;
     bool use_dict = false;
     bool show_help = false;
+    bool check_time = false;
     std::optional<char> replace_symbol = std::nullopt;
 
     static std::string_view help() {
@@ -28,6 +29,7 @@ struct ConsoleArgs {
                 "optional parameters:\n"
                 "-w; --with - Symbol for replace\n"
                 "-d; --dict - Use dict replacements word\n"
+                "-t; --time - Check time\n"
                 "-h; --help - Show help"
         };
     }
@@ -40,6 +42,7 @@ struct ConsoleArgs {
             auto arg = args[i]; bool has_args = i+1 < args.size();
             if (arg == "-h" || arg == "--help") { result.show_help = true; break; }
             else if (arg == "-d" || arg == "--dict") result.use_dict = true;
+            else if (arg == "-t" || arg == "--time") result.check_time = true;
             else if (arg == "-r" || arg == "--replace") {
                 if (!has_args || args[i+1].starts_with("-")) {
                     throw argument_parse_error("Not found value for [--replace; -r] parameter");

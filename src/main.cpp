@@ -7,6 +7,7 @@
 #include "word_replacers/list_replacer.h"
 
 #include <exception>
+#include "check_time.h"
 
 struct file_not_found : std::runtime_error {
     using runtime_error::runtime_error;
@@ -71,6 +72,8 @@ void replace_words_from_file(
     }
 }
 
+
+
 int main(int argc, char* argv[]) {
     ConsoleArgs console_args;
     try {
@@ -87,13 +90,18 @@ int main(int argc, char* argv[]) {
     }
 
     try {
-        replace_words_from_file(
-                console_args.src,
-                console_args.dest,
-                console_args.replace,
-                console_args.replace_symbol,
-                console_args.use_dict
-                );
+        auto elapsed_time = check_time([&]{
+            replace_words_from_file(
+                    console_args.src,
+                    console_args.dest,
+                    console_args.replace,
+                    console_args.replace_symbol,
+                    console_args.use_dict
+                    );
+        });
+        if (console_args.check_time) {
+            std::cout << "Elapsed time: " << elapsed_time.count() << "s" << std::endl;
+        }
     } catch (const std::runtime_error& err) {
         std::cout << err.what() << std::endl;
         return 1;
