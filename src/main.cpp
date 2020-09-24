@@ -13,6 +13,11 @@ struct file_not_found : std::runtime_error {
     using runtime_error::runtime_error;
 };
 
+/**
+ * read words from input stream
+ * @param in - input stream
+ * @return words
+ */
 std::vector<std::string> read_words(std::istream& in) {
     return std::vector<std::string>{
             std::istream_iterator<std::string>(in),
@@ -20,6 +25,11 @@ std::vector<std::string> read_words(std::istream& in) {
     };
 }
 
+/**
+ * read word pairs from input stream
+ * @param in - input stream
+ * @return word pairs
+ */
 std::vector<std::pair<std::string, std::string>> read_word_dictionary(std::istream& in) {
     std::vector<std::pair<std::string, std::string>> word_to_word;
     while (!in.eof()) {
@@ -30,22 +40,40 @@ std::vector<std::pair<std::string, std::string>> read_word_dictionary(std::istre
     return word_to_word;
 }
 
-std::unique_ptr<WordReplacer> build_replacer(std::istream &file, bool is_dict, char replacement_symbol) {
+/**
+ * Build word replacer by params
+ * @param file with words to replacements
+ * @param is_dict flag that the file contains a dictionary
+ * @param replacement_symbol
+ * @return word replacer
+ */
+std::unique_ptr<WordReplacer> build_replacer(std::istream &file, bool is_dict, std::optional<char> replacement_symbol) {
     if (is_dict) {
         auto word_to_word = read_word_dictionary(file);
         return std::make_unique<ReplacerWordToWord>(std::move(word_to_word));
     } else {
         return std::make_unique<ReplacerWordToChar>(
             std::move(read_words(file)),
-            replacement_symbol
+            replacement_symbol.value_or('*')
         );
     }
 }
 
+/**
+ * Replace words from `src` to `destination`.
+ * Where `dest` is null length output stream is `std::cout`
+ * Where flag `use_dict` is `true` words replacements to words from `replace` dictionary.
+ *
+ * @param src - file path to source
+ * @param dest - file path to destination
+ * @param replace - file path to words
+ * @param replace_symbol - optional char
+ * @param use_dict - flag destination is dictionary
+ */
 void replace_words_from_file(
-        std::string src,
-        std::string dest,
-        std::string replace,
+        const std::string& src,
+        const std::string& dest,
+        const std::string& replace,
         std::optional<char> replace_symbol,
         bool use_dict
         ) {
@@ -59,7 +87,7 @@ void replace_words_from_file(
     if (!file.is_open())
         throw file_not_found("file " + replace + " not open");
 
-    auto replacer = std::move(build_replacer(file, use_dict, replace_symbol.value_or('*')));
+    auto replacer = std::move(build_replacer(file, use_dict, replace_symbol));
 
     if (dest.empty()) {
         replace_words_in_stream(fin, std::cout, *replacer);
@@ -104,7 +132,7 @@ int main(int argc, char* argv[]) {
         }
     } catch (const std::runtime_error& err) {
         std::cout << err.what() << std::endl;
-        return 1;
+        return -1;
     }
 
     return 0;

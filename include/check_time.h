@@ -3,6 +3,12 @@
 
 #include <chrono>
 
+/**
+ * Check the elapsed time of function [f]
+ * @tparam Func
+ * @param f - function for time checking
+ * @return duration in seconds
+ */
 template <typename Func>
 std::chrono::duration<double> check_time(Func&& f) {
     auto start = std::chrono::steady_clock::now();

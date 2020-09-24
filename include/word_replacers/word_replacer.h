@@ -4,10 +4,19 @@
 #include <string>
 #include <string_view>
 
+/**
+ * Interface for replace words.
+ */
 class WordReplacer {
 public:
     virtual bool need_replace(std::string_view word) = 0;
+    /**
+     * @param word to replace
+     * @return replaced word
+     */
     virtual std::string replace_word(std::string_view word) = 0;
+
+    virtual ~WordReplacer() = default;
 };
 
 #endif //WORD_VALIDATOR_WORD_REPLACER_H

@@ -5,10 +5,20 @@
 
 #include "word_replacers/word_replacer.h"
 
+/**
+ * @param ch - character for checking
+ * @return flag
+ */
 bool is_word_symbol(char ch) {
     return std::isalnum(ch);
 }
 
+/**
+ * Replace words in line
+ * @param line
+ * @param word_replacer
+ * @return new line with replacement words
+ */
 std::string replace_words(std::string_view line, WordReplacer& word_replacer) {
     std::string result;
     using index_type = decltype(line)::size_type;
@@ -29,6 +39,12 @@ std::string replace_words(std::string_view line, WordReplacer& word_replacer) {
     return result;
 }
 
+/**
+ * Read line from `in`. Replace words in line. Write line in `out`.
+ * @param in - input stream
+ * @param out - output stream
+ * @param word_replacer
+ */
 void replace_words_in_stream(std::istream& in, std::ostream& out, WordReplacer& word_replacer) {
     for (std::string line; std::getline(in, line);) {
         out << replace_words(line, word_replacer) << std::endl;

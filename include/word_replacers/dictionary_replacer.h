@@ -19,7 +19,12 @@ public:
     }
 
     std::string replace_word(std::string_view word) override {
-        return need_replace(word) ? word_replacement_dictionary.find(word)->second : std::string(word);
+        if (auto word_it = word_replacement_dictionary.find(word);
+            word_it != word_replacement_dictionary.end()) {
+            return word_it->second;
+        } else {
+            return std::string(word);
+        }
     }
 
 private:
