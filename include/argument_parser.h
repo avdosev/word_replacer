@@ -78,6 +78,9 @@ struct ConsoleArgs {
                 positional_argument += 1;
             }
         }
+        if (result.use_dict && result.replace_symbol.has_value()) {
+            throw argument_parse_error("Use single --dict or --with");
+        }
         return result;
     }
 
