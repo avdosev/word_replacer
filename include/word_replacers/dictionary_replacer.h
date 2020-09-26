@@ -2,8 +2,9 @@
 #define WORD_VALIDATOR_DICTIONARY_REPLACER_H
 
 #include "word_replacer.h"
+#include "string_helper.h"
 
-#include <map>
+#include <unordered_map>
 
 class ReplacerWordToWord : public WordReplacer {
 public:
@@ -14,7 +15,7 @@ public:
     {
     }
 
-    bool need_replace(std::string_view word) override {
+    bool need_replace(std::string_view word) noexcept override {
         return word_replacement_dictionary.find(word) != word_replacement_dictionary.end();
     }
 
@@ -28,7 +29,7 @@ public:
     }
 
 private:
-    std::map<std::string, std::string, std::less<>> word_replacement_dictionary;
+    std::unordered_map<std::string, std::string, string_hash, string_equal> word_replacement_dictionary;
 };
 
 #endif //WORD_VALIDATOR_DICTIONARY_REPLACER_H

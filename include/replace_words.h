@@ -16,16 +16,17 @@ bool is_word_symbol(char ch) {
 /**
  * Replace words in line
  * @param line
+ * @param[out] result - new line with replacement words
  * @param word_replacer
- * @return new line with replacement words
  */
-std::string replace_words(std::string_view line, WordReplacer& word_replacer) {
-    std::string result;
+void replace_words(std::string_view line, std::string& result, WordReplacer& word_replacer) {
+    result.erase();
     using index_type = decltype(line)::size_type;
     for (index_type i = 0; i < line.size(); i++) {
-        if (is_word_symbol(line.at(i))) {
-            index_type word_start = i, word_size = 0;
-            while (i+word_size < line.size() && is_word_symbol(line.at(i + word_size))) ++word_size;
+        if (is_word_symbol(line[i])) {
+            index_type word_start = i, word_end;
+            for (word_end = i; word_end < line.size() && is_word_symbol(line[word_end]); ++word_end);
+            auto word_size = word_end - word_start;
             i += word_size-1;
             auto word = line.substr(word_start, word_size);
             if (word_replacer.need_replace(word))
@@ -36,7 +37,6 @@ std::string replace_words(std::string_view line, WordReplacer& word_replacer) {
             result.push_back(line[i]);
         }
     }
-    return result;
 }
 
 /**
@@ -46,8 +46,10 @@ std::string replace_words(std::string_view line, WordReplacer& word_replacer) {
  * @param word_replacer
  */
 void replace_words_in_stream(std::istream& in, std::ostream& out, WordReplacer& word_replacer) {
-    for (std::string line; std::getline(in, line);) {
-        out << replace_words(line, word_replacer) << std::endl;
+    for (std::string line, replaced_line; std::getline(in, line);) {
+        replace_words(line, replaced_line, word_replacer);
+        replaced_line.push_back('\n'); // std::endl - slow
+        out << replaced_line;
     }
 }
 

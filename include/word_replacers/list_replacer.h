@@ -3,17 +3,21 @@
 
 #include "word_replacer.h"
 
-#include <set>
+#include <unordered_set>
+
+#include "string_helper.h"
 
 class ReplacerWordToChar : public WordReplacer {
 public:
     ReplacerWordToChar(std::vector<std::string> words, char ch) :
-            words_to_be_replaced(std::make_move_iterator(words.begin()), std::make_move_iterator(words.end())),
+            words_to_be_replaced(
+                    std::make_move_iterator(words.begin()),
+                    std::make_move_iterator(words.end())),
             replacement_symbol(ch)
     {
     }
 
-    bool need_replace(std::string_view word) override {
+    bool need_replace(std::string_view word) noexcept override {
         return words_to_be_replaced.find(word) != words_to_be_replaced.end();
     }
 
@@ -22,7 +26,7 @@ public:
     }
 
 private:
-    std::set<std::string, std::less<>> words_to_be_replaced;
+    std::unordered_set<std::string, string_hash, string_equal> words_to_be_replaced;
     char replacement_symbol;
 };
 

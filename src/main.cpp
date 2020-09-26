@@ -32,10 +32,13 @@ std::vector<std::string> read_words(std::istream& in) {
  */
 std::vector<std::pair<std::string, std::string>> read_word_dictionary(std::istream& in) {
     std::vector<std::pair<std::string, std::string>> word_to_word;
-    while (!in.eof()) {
-        std::string left, right;
-        in >> left >> right;
-        word_to_word.emplace_back(left, right);
+    for (std::string line; std::getline(in, line);) {
+        auto delimeter_position = line.find(':');
+        if (delimeter_position == std::string::npos)
+            throw std::runtime_error("Dictionary parse error");
+        auto left = line.substr(0, delimeter_position);
+        auto right = line.substr(delimeter_position+1);
+        word_to_word.emplace_back(std::move(left), std::move(right));
     }
     return word_to_word;
 }
@@ -47,7 +50,7 @@ std::vector<std::pair<std::string, std::string>> read_word_dictionary(std::istre
  * @param replacement_symbol
  * @return word replacer
  */
-std::unique_ptr<WordReplacer> build_replacer(std::istream &file, bool is_dict, std::optional<char> replacement_symbol) {
+std::unique_ptr<WordReplacer> build_replacer_from_stream(std::istream &file, bool is_dict, std::optional<char> replacement_symbol) {
     if (is_dict) {
         auto word_to_word = read_word_dictionary(file);
         return std::make_unique<ReplacerWordToWord>(std::move(word_to_word));
@@ -87,7 +90,7 @@ void replace_words_from_file(
     if (!file.is_open())
         throw file_not_found("file " + replace + " not open");
 
-    auto replacer = std::move(build_replacer(file, use_dict, replace_symbol));
+    auto replacer = std::move(build_replacer_from_stream(file, use_dict, replace_symbol));
 
     if (dest.empty()) {
         replace_words_in_stream(fin, std::cout, *replacer);
