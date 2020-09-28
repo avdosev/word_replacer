@@ -4,6 +4,7 @@
 
 #include <random>
 #include <array>
+#include <iomanip>
 //#include <ranges>
 
 class StringGenerator {
@@ -52,9 +53,10 @@ auto benchmark(std::uniform_int_distribution<size_t> word_len, BenchmarkData ben
     ReplacerWordToChar replacer(std::move(words), '*');
 
     std::string line = string_generator.generate_line(bench_info.words_in_line, word_len);
+    std::string replaced;
+    replaced.reserve(line.size());
 
     auto duration = check_time([&]{
-        std::string replaced;
         replace_words(line, replaced, replacer);
     });
 
@@ -66,12 +68,14 @@ int main() {
 
     std::vector<BenchmarkData> benchmarks;
     for (size_t in_replace = 1000; in_replace <= 10000000; in_replace *= 10)
-        for (size_t in_line = 1000; in_line <= 10000000; in_line *= 10)
+        for (size_t in_line = 1000; in_line <= 100000000; in_line *= 10)
             benchmarks.push_back({in_line, in_replace});
 
     for (auto bench: benchmarks) {
         auto elapsed_time = benchmark(word_len, bench);
-        std::cout << "info: " << bench.words_in_line << ";\t" << bench.words_to_replace << "\t" << "time: " << elapsed_time.count() << "s" << std::endl;
+        std::cout
+            << "info: " << std::setw(10) << bench.words_in_line << " " << std::setw(10) << bench.words_to_replace << "; "
+            << "time: " << elapsed_time.count() << "s" << std::endl;
     }
 
 }
