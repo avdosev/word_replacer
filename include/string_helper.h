@@ -20,10 +20,6 @@ struct string_hash {
     auto operator()(std::string_view str) const noexcept {
         return std::hash<std::string_view>()(str);
     }
-
-    auto operator()(const std::string& str) const noexcept {
-        return std::hash<std::string>()(str);
-    }
 };
 
 #endif //WORD_VALIDATOR_STRING_HELPER_H

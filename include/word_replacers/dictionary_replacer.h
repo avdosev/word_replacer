@@ -15,11 +15,11 @@ public:
     {
     }
 
-    bool need_replace(std::string_view word) noexcept override {
+    bool need_replace(std::string_view word) const noexcept override {
         return word_replacement_dictionary.find(word) != word_replacement_dictionary.end();
     }
 
-    std::string replace_word(std::string_view word) override {
+    std::string replace_word(std::string_view word) const override {
         if (auto word_it = word_replacement_dictionary.find(word);
             word_it != word_replacement_dictionary.end()) {
             return word_it->second;

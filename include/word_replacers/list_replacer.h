@@ -17,11 +17,11 @@ public:
     {
     }
 
-    bool need_replace(std::string_view word) noexcept override {
+    bool need_replace(std::string_view word) const noexcept override {
         return words_to_be_replaced.find(word) != words_to_be_replaced.end();
     }
 
-    std::string replace_word(std::string_view word) override {
+    std::string replace_word(std::string_view word) const override {
         return std::string(word.size(), replacement_symbol);
     }
 
