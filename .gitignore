@@ -3,3 +3,4 @@ graph_info.json
 !conanfile.txt
 cmake-*
 .idea
+doc

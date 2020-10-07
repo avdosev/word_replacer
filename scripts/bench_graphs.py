@@ -63,7 +63,7 @@ for y, label in zip(ys, (f"words_in_line={v}" for v in df["words_in_line"].uniqu
     
 ax.set_ylabel('time')
 ax.set_xlabel('words_to_replace')
-# ax.set_xscale('log')
+ax.set_yscale('log')
 ax.legend(loc='upper left')
 
 plt.show()
