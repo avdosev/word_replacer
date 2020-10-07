@@ -47,12 +47,12 @@ auto benchmark(std::uniform_int_distribution<size_t> word_len, BenchmarkData ben
     StringGenerator string_generator;
     std::vector<std::string> words(bench_info.words_to_replace);
     for (auto& word: words) {
-        word = string_generator.generate_word(word_len);
+        word = std::move(string_generator.generate_word(word_len));
     }
 
     ReplacerWordToChar replacer(std::move(words), '*');
 
-    std::string line = string_generator.generate_line(bench_info.words_in_line, word_len);
+    auto line = string_generator.generate_line(bench_info.words_in_line, word_len);
     std::string replaced;
     replaced.reserve(line.size());
 
@@ -67,8 +67,8 @@ int main() {
     std::uniform_int_distribution<size_t> word_len{5, 10};
 
     std::vector<BenchmarkData> benchmarks;
-    for (size_t in_replace = 1000; in_replace <= 10000000; in_replace *= 10)
-        for (size_t in_line = 1000; in_line <= 100000000; in_line *= 10)
+    for (size_t in_replace = 1000; in_replace <= 10000000; in_replace *= 2)
+        for (size_t in_line = 1000; in_line <= 10000000; in_line *= 10)
             benchmarks.push_back({in_line, in_replace});
 
     for (auto bench: benchmarks) {

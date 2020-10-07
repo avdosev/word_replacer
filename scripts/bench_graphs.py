@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from pprint import pprint
 
-file = open("script_data/with_string_reserve.txt", 'r')
+file = open("script_data/bench_last2.txt", 'r')
 
 def parse_line(line: str):
     params = line.split(';')
@@ -63,7 +63,7 @@ for y, label in zip(ys, (f"words_in_line={v}" for v in df["words_in_line"].uniqu
     
 ax.set_ylabel('time')
 ax.set_xlabel('words_to_replace')
-# ax.set_yscale('log')
+# ax.set_xscale('log')
 ax.legend(loc='upper left')
 
 plt.show()
