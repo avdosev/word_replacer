@@ -25,7 +25,7 @@ def parse_data(data):
         res.append({
             "words_in_line": d[0],
             "words_to_replace": d[1],
-            "time": float(item['time'][:-2])
+            "time": float(item['time'][:-1])
         })
         
     return res
