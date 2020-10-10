@@ -67,8 +67,8 @@ int main() {
     std::uniform_int_distribution<size_t> word_len{5, 10};
 
     std::vector<BenchmarkData> benchmarks;
-    for (size_t in_replace = 1000; in_replace <= 10000000; in_replace *= 2)
-        for (size_t in_line = 1000; in_line <= 10000000; in_line *= 10)
+    for (size_t in_replace = 1000; in_replace <= 10000000; in_replace *= 10)
+        for (size_t in_line = 1000; in_line <= 100000000; in_line *= 10)
             benchmarks.push_back({in_line, in_replace});
 
     for (auto bench: benchmarks) {
