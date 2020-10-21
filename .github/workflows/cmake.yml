@@ -1,0 +1,47 @@
+name: CMake
+
+on: [push]
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Download Conan package manager.
+      run: |
+           pwd
+           pip3 install wheel setuptools
+           pip3 install conan
+           export PATH=$PATH:/home/runner/.local/bin
+           echo $PATH
+           conan --version
+           ls
+           sudo ln -s ~/.local/bin/conan /usr/local/bin/conan
+           
+    - name: Install packages
+      working-directory: ${{runner.workspace}}/tests
+      run: conan install . 
+      
+    - name: Create Build Environment
+      run: cmake -E make_directory ${{runner.workspace}}/build
+
+    - name: Configure CMake
+      shell: bash
+      working-directory: ${{runner.workspace}}/build
+      run: cmake $GITHUB_WORKSPACE -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+
+    - name: Build
+      working-directory: ${{runner.workspace}}/build
+      shell: bash
+      # Execute the build.  You can specify a specific target with "--target <NAME>"
+      run: cmake --build . --config $BUILD_TYPE
+
+    - name: Test
+      working-directory: ${{runner.workspace}}/build
+      shell: bash
+      run: ctest -C $BUILD_TYPE
