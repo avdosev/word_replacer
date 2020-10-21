@@ -7,8 +7,7 @@
 struct string_equal {
     using is_transparent = std::true_type ;
 
-    bool operator()(std::string_view l, std::string_view r) const noexcept
-    {
+    bool operator()(std::string_view l, std::string_view r) const noexcept {
         return l == r;
     }
 };
