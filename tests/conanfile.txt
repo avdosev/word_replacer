@@ -1,5 +1,5 @@
 [requires]
-argparse/2.1
+doctest/2.4.0
 
 [generators]
 cmake

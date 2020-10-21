@@ -7,6 +7,9 @@
 
 #include "string_helper.h"
 
+/**
+ * @ingroup WordReplacers
+ */
 class ReplacerWordToChar : public WordReplacer {
 public:
     ReplacerWordToChar(std::vector<std::string> words, char ch) :

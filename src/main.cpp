@@ -6,12 +6,10 @@
 #include "word_replacers/dictionary_replacer.h"
 #include "word_replacers/list_replacer.h"
 
-#include <exception>
+#include "errors.h"
 #include "check_time.h"
 
-struct file_not_found : std::runtime_error {
-    using runtime_error::runtime_error;
-};
+/// \file
 
 /**
  * read words from input stream

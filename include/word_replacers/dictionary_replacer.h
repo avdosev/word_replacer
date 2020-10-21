@@ -6,6 +6,9 @@
 
 #include <unordered_map>
 
+/**
+ * @ingroup WordReplacers
+ */
 class ReplacerWordToWord : public WordReplacer {
 public:
     explicit ReplacerWordToWord(std::vector<std::pair<std::string, std::string>> word_to_word_pairs) :

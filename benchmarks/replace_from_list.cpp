@@ -5,7 +5,7 @@
 #include <random>
 #include <array>
 #include <iomanip>
-//#include <ranges>
+
 
 class StringGenerator {
 public:
@@ -34,6 +34,7 @@ public:
         return line;
     }
 
+private:
     std::mt19937 engine;
 
 };

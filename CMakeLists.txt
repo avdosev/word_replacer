@@ -4,14 +4,16 @@ project(word_validator)
 set(CMAKE_CXX_STANDARD 20)
 
 option(BUILD_BENCHMARKS "enable build benchmarks" ON)
-
-#include(conanbuildinfo.cmake)
-#conan_basic_setup()
+option(BUILD_TESTS "enable build tests" ON)
 
 include_directories(include)
 add_executable(word_validator src/main.cpp)
 
-
 if(BUILD_BENCHMARKS)
     add_subdirectory(benchmarks ./benchmarks)
+endif()
+
+if(BUILD_TESTS)
+    enable_testing()
+    add_subdirectory(tests ./tests)
 endif()

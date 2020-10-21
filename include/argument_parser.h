@@ -6,6 +6,7 @@
 #include <string_view>
 #include <optional>
 
+/// @ingroup Errors
 struct argument_parse_error : std::runtime_error {
     using runtime_error::runtime_error;
 };

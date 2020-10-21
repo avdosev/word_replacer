@@ -5,6 +5,11 @@
 #include <string_view>
 
 /**
+ * @defgroup WordReplacers Word replacers group
+ */
+
+/**
+ * @ingroup WordReplacers
  * Interface for replace words.
  */
 class WordReplacer {
