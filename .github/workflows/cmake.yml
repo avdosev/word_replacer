@@ -24,7 +24,7 @@ jobs:
            sudo ln -s ~/.local/bin/conan /usr/local/bin/conan
            
     - name: Install packages
-      working-directory: ${{runner.workspace}}/tests
+      working-directory: tests
       run: conan install . 
       
     - name: Create Build Environment
