@@ -12,7 +12,7 @@
  */
 class ReplacerWordToChar : public WordReplacer {
 public:
-    ReplacerWordToChar(std::vector<std::string> words, char ch) :
+    explicit ReplacerWordToChar(std::vector<std::string> words, char ch) :
             words_to_be_replaced(
                     std::make_move_iterator(words.begin()),
                     std::make_move_iterator(words.end())),
