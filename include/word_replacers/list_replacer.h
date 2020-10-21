@@ -21,7 +21,7 @@ public:
     }
 
     bool need_replace(std::string_view word) const noexcept override {
-        return words_to_be_replaced.find(word) != words_to_be_replaced.end();
+        return words_to_be_replaced.find(USE_STRING(word)) != words_to_be_replaced.end();
     }
 
     std::string replace_word(std::string_view word) const override {

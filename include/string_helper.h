@@ -21,4 +21,10 @@ struct string_hash {
     }
 };
 
+#ifdef WITH_MSVC
+#define USE_STRING(s) s
+#else
+#define USE_STRING(s) std::string(s)
+#endif
+
 #endif //WORD_VALIDATOR_STRING_HELPER_H
