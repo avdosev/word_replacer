@@ -5,6 +5,7 @@
 #include "string_helper.h"
 
 #include <unordered_map>
+#include <vector>
 
 /**
  * @ingroup WordReplacers
