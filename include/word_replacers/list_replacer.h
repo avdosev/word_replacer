@@ -4,6 +4,7 @@
 #include "word_replacer.h"
 
 #include <unordered_set>
+#include <vector>
 
 #include "string_helper.h"
 
