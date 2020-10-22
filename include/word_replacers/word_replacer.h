@@ -14,12 +14,12 @@
  */
 class WordReplacer {
 public:
-    virtual bool need_replace(std::string_view word) const = 0;
+    virtual bool need_replace(std::string_view word) = 0;
     /**
      * @param word to replace
      * @return replaced word
      */
-    virtual std::string replace_word(std::string_view word) const = 0;
+    virtual std::string replace_word(std::string_view word) = 0;
 
     virtual ~WordReplacer() = default;
 };

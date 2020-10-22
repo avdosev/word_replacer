@@ -5,7 +5,7 @@
 
 
 TEST_SUITE("dictionary replacer") {
-    TEST_CASE("testing the need replace") {
+    TEST_CASE("need replace for word to word replacer") {
         ReplacerWordToWord replacer({
                 {"a", "ddd"},
                 {"b", "aaa"},
@@ -25,7 +25,7 @@ TEST_SUITE("dictionary replacer") {
         CHECK_FALSE(replacer.need_replace("fusnscdoijaods"));
     }
 
-    TEST_CASE("testing the replace word") {
+    TEST_CASE("replace word for word to word replacer") {
         ReplacerWordToWord replacer({
             {"a", "ddd"},
             {"b", "aaa"},

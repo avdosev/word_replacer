@@ -2,8 +2,8 @@
 #include <doctest/doctest.h>
 #include <word_replacers/list_replacer.h>
 
-TEST_SUITE("dictionary replacer") {
-    TEST_CASE("testing the need replace") {
+TEST_SUITE("list replacer") {
+    TEST_CASE("need replace for word to char replacer") {
         ReplacerWordToChar replacer({
             "a",
             "bb",
@@ -26,7 +26,7 @@ TEST_SUITE("dictionary replacer") {
         CHECK_FALSE(replacer.need_replace("ggg"));
     }
 
-    TEST_CASE("testing the replace word") {
+    TEST_CASE("replace word for word to char replacer") {
         for (char ch : "*#390a") {
             ReplacerWordToChar replacer({
                 "a",

@@ -15,6 +15,7 @@ bool is_word_symbol(char ch) {
 
 /**
  * Replace words in line
+ * This function faster than `string replace_words(string_view, WordReplacer)`
  * @param line
  * @param[out] result - new line with replacement words
  * @param word_replacer
@@ -37,6 +38,18 @@ void replace_words(std::string_view line, std::string& result, WordReplacer& wor
             result.push_back(line[i]);
         }
     }
+}
+
+/**
+ * Replace words in line
+ * @param line
+ * @param word_replacer
+ * @return new line with replacement words
+ */
+std::string replace_words(std::string_view line, WordReplacer& replacer) {
+    std::string res;
+    replace_words(line, res, replacer);
+    return res;
 }
 
 /**
