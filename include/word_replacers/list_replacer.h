@@ -10,6 +10,7 @@
 
 /**
  * @ingroup WordReplacers
+ * Replaces all letters of a word from a wordlist with a substitute character.
  */
 class ReplacerWordToChar : public WordReplacer {
 public:

@@ -9,6 +9,8 @@
 
 /**
  * @ingroup WordReplacers
+ * Replace a word with a pair word from the dictionary.
+ * If the word is not found in the dictionary, the word is not replaced.
  */
 class ReplacerWordToWord : public WordReplacer {
 public:
