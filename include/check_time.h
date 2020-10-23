@@ -3,6 +3,8 @@
 
 #include <chrono>
 
+/// \file
+
 /**
  * Check the elapsed time of function [f]
  * @tparam Func

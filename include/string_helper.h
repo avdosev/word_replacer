@@ -4,6 +4,10 @@
 #include <string_view>
 #include <string>
 
+/**
+ * Struct for fast string equal checking
+ * Support is_transparent for key-value containers
+ */
 struct string_equal {
     using is_transparent = std::true_type ;
 
@@ -12,7 +16,10 @@ struct string_equal {
     }
 };
 
-
+/**
+ * Struct for fast string hashing
+ * Support is_transparent for key-value containers
+ */
 struct string_hash {
     using is_transparent = std::true_type ;
 

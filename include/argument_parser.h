@@ -6,11 +6,11 @@
 #include <string_view>
 #include <optional>
 
-/// @ingroup Errors
-struct argument_parse_error : std::runtime_error {
-    using runtime_error::runtime_error;
-};
+#include "errors.h"
 
+/**
+ * Parsed the console arguments
+ */
 struct ConsoleArgs {
     std::string src;
     std::string dest;
@@ -20,6 +20,9 @@ struct ConsoleArgs {
     bool check_time = false;
     std::optional<char> replace_symbol = std::nullopt;
 
+    /**
+     * @return help string for console
+     */
     static std::string_view help() {
         return {""
                 "positional arguments:\n"
@@ -35,6 +38,11 @@ struct ConsoleArgs {
         };
     }
 
+    /**
+     * Parse console arguments
+     * @param args - arguments from console
+     * @return parsed arguments
+     */
     static ConsoleArgs parse(std::vector<std::string_view> args) {
         ConsoleArgs result;
         size_t max_positional_argument = 2;
@@ -85,6 +93,12 @@ struct ConsoleArgs {
         return result;
     }
 
+    /**
+     * Parse console arguments using similar arguments to main
+     * @param argc - count args
+     * @param argv - string args
+     * @return parsed arguments
+     */
     static ConsoleArgs parse(int argc, char* argv[]) {
         std::vector<std::string_view> args;
         args.reserve(argc);

@@ -5,6 +5,8 @@
 
 #include "word_replacers/word_replacer.h"
 
+/// \file
+
 /**
  * @param ch - character for checking
  * @return flag

@@ -14,6 +14,10 @@
  */
 class WordReplacer {
 public:
+    /**
+     * @param word
+     * @return need to replace `word`
+     */
     virtual bool need_replace(std::string_view word) = 0;
     /**
      * @param word to replace

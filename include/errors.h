@@ -12,4 +12,9 @@ struct file_not_found : std::runtime_error {
     using runtime_error::runtime_error;
 };
 
+/// @ingroup Errors
+struct argument_parse_error : std::runtime_error {
+    using runtime_error::runtime_error;
+};
+
 #endif //WORD_VALIDATOR_ERRORS_H
