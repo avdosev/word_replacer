@@ -103,8 +103,7 @@ Inheritance diagram for WordReplacer:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:afbdfe7f67ba150320959efae906d9fef"><td class="memItemLeft" align="right" valign="top"><a id="afbdfe7f67ba150320959efae906d9fef"></a>
-virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>need_replace</b> (std::string_view word)=0</td></tr>
+<tr class="memitem:afbdfe7f67ba150320959efae906d9fef"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_word_replacer.html#afbdfe7f67ba150320959efae906d9fef">need_replace</a> (std::string_view word)=0</td></tr>
 <tr class="separator:afbdfe7f67ba150320959efae906d9fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d3f2b3f96860e80ce2f9da72f9e2795"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_word_replacer.html#a4d3f2b3f96860e80ce2f9da72f9e2795">replace_word</a> (std::string_view word)=0</td></tr>
 <tr class="separator:a4d3f2b3f96860e80ce2f9da72f9e2795"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -112,6 +111,41 @@ virtual bool&#160;</td><td class="memItemRight" valign="bottom"><b>need_replace<
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Interface for replace words. </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="afbdfe7f67ba150320959efae906d9fef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbdfe7f67ba150320959efae906d9fef">&#9670;&nbsp;</a></span>need_replace()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual bool WordReplacer::need_replace </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view&#160;</td>
+          <td class="paramname"><em>word</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">word</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>need to replace <code>word</code> </dd></dl>
+
+<p>Implemented in <a class="el" href="class_replacer_word_to_char.html#ac5b230516f951774d7db008b54829d5c">ReplacerWordToChar</a>, and <a class="el" href="class_replacer_word_to_word.html#a7222bf6372afa211b1206e6395e8e504">ReplacerWordToWord</a>.</p>
+
+</div>
+</div>
 <a id="a4d3f2b3f96860e80ce2f9da72f9e2795"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4d3f2b3f96860e80ce2f9da72f9e2795">&#9670;&nbsp;</a></span>replace_word()</h2>
 
